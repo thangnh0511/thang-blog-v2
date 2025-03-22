@@ -15,7 +15,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     <div className="container py-12">
       <h1 className="text-4xl font-bold tracking-tight mb-8">{locale === "en" ? "Blog" : "Bài viết"}</h1>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {posts.map((post) => (
+        {posts.map((post:any) => (
           <PostCard key={post._id} post={post} locale={locale} />
         ))}
       </div>

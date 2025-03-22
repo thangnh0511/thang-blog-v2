@@ -4,13 +4,11 @@ import { getPosts } from "@/lib/sanity"
 import { PostCard } from "@/components/post-card"
 
 interface HomePageProps {
-  searchParams: {
-    locale?: string
-  }
+  searchParams: URLSearchParams
 }
 
-export default async function Home({ searchParams }: HomePageProps) {
-  const locale = searchParams.locale || "en"
+export default async function Home({ searchParams }: { searchParams?: Record<string, string | string[] | undefined> }) {
+  const locale = typeof searchParams?.locale === "string" ? searchParams.locale : "en"
   const posts = await getPosts(3)
 
   return (
@@ -42,7 +40,7 @@ export default async function Home({ searchParams }: HomePageProps) {
             {locale === "en" ? "Latest Posts" : "Bài viết mới nhất"}
           </h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
+            {posts.map((post:any) => (
               <PostCard key={post._id} post={post} locale={locale} />
             ))}
           </div>
@@ -56,4 +54,3 @@ export default async function Home({ searchParams }: HomePageProps) {
     </div>
   )
 }
-
