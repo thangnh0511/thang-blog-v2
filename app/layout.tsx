@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: "Personal Blog",
   description: "A personal blog built with Next.js and Sanity CMS",
   generator: "v0.dev",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

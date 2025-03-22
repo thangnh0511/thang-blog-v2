@@ -29,12 +29,12 @@ export default async function Home({ searchParams }: HomePageProps) {
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Button asChild size="lg">
               <Link href={`/blog?locale=${locale}`}>
-                {locale === "en" ? "Read Blog" : "Đọc bài viết"}
+                {locale === "en" ? "Read Blog" : "Bài viết"}
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg">
               <Link href={`/about?locale=${locale}`}>
-                {locale === "en" ? "About Me" : "Về tôi"}
+                {locale === "en" ? "About Me" : "Về Mình"}
               </Link>
             </Button>
           </div>

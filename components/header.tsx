@@ -2,14 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState, Suspense } from "react";
+import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useState, Suspense } from "react";
 import { LanguageSwitcher } from "@/components/language-switcher";
-import { Logo } from "./_asset/logo";
 import { HeaderLocale } from "./header-locale";
+import { Logo } from "./_asset/logo";
+import { LogoWhite } from "./_asset/logo-white";
 
 const routes = [
   { href: "/", label: "Home" },
@@ -17,6 +19,25 @@ const routes = [
   { href: "/about", label: "About" },
 ];
 
+// Component nhỏ để xử lý đổi logo theo theme
+function LogoSwitcher() {
+  const { theme, systemTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  const currentTheme = theme === "system" ? systemTheme : theme;
+
+  if (!mounted) return null;
+
+  return currentTheme === "dark" ? (
+    <LogoWhite width={150} height={50} className="hover:opacity-80 transition" />
+  ) : (
+    <Logo width={150} height={50} className="hover:opacity-80 transition" />
+  );
+}
+
+// Fallback khi LanguageSwitcher đang load
 function LanguageSwitcherWithFallback() {
   return (
     <Suspense
@@ -31,6 +52,7 @@ function LanguageSwitcherWithFallback() {
   );
 }
 
+// Header chính
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -41,20 +63,16 @@ export default function Header() {
         const getHref = (path: string) => `${path}?locale=${locale}`;
 
         return (
-          <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 overflow-hidden">
             <div className="container flex h-16 items-center justify-between">
               {/* Left: Logo */}
               <div className="flex items-center gap-2">
                 <Link href={getHref("/")} className="font-bold text-xl">
-                  <Logo
-                    width={150}
-                    height={50}
-                    className="hover:opacity-80 transition"
-                  />
+                  <LogoSwitcher />
                 </Link>
               </div>
 
-              {/* Center: Nav on Desktop */}
+              {/* Center: Desktop Nav */}
               <nav className="hidden lg:flex items-center gap-6">
                 {routes.map((route) => (
                   <Link
@@ -66,14 +84,12 @@ export default function Header() {
                         : "text-muted-foreground"
                     }`}
                   >
-                    {locale === "en"
-                      ? route.label
-                      : translateLabel(route.label)}
+                    {locale === "en" ? route.label : translateLabel(route.label)}
                   </Link>
                 ))}
               </nav>
 
-              {/* Right: Language, DarkMode, Mobile Menu */}
+              {/* Right: Language, DarkMode, Mobile Nav */}
               <div className="flex items-center gap-2">
                 <LanguageSwitcherWithFallback />
                 <ModeToggle />
