@@ -16,7 +16,7 @@ export function urlForImage(source: any) {
 
 // Update the getPosts function to handle bilingual content
 export async function getPosts(limit?: number) {
-  const query = `*[_type == "post"] | order(publishedAt desc) ${limit ? `[0...${limit}]` : ""} {
+  const query = `*[_type == "post"] | order(createdDate desc) ${limit ? `[0...${limit}]` : ""} {
     _id,
     title_en,
     title_vi,
@@ -27,10 +27,11 @@ export async function getPosts(limit?: number) {
     shortDescription_en,
     shortDescription_vi,
     "author": author->{
-      name
+      fullName,
+      "avatar": avatar.asset -> url
     },
     "category": category->{
-      title
+      name
     },
     postType
   }`
@@ -53,8 +54,9 @@ export async function getPost(slug: string) {
     shortDescription_en,
     shortDescription_vi,
     "author": author->{
-      name,
-      "image": image.asset->url
+      fullName,
+      bio,
+      "avatar": avatar.asset->url
     },
     "category": category->{
       title

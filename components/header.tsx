@@ -8,20 +8,12 @@ import { Menu } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { useState, Suspense } from "react"
 import { LanguageSwitcher } from "@/components/language-switcher"
+import { Logo } from "./_asset/logo"
 
 const routes = [
-  {
-    href: "/",
-    label: "Home",
-  },
-  {
-    href: "/blog",
-    label: "Blog",
-  },
-  {
-    href: "/about",
-    label: "About",
-  },
+  { href: "/", label: "Home" },
+  { href: "/blog", label: "Blog" },
+  { href: "/about", label: "About" },
 ]
 
 function LanguageSwitcherWithFallback() {
@@ -41,12 +33,9 @@ function LanguageSwitcherWithFallback() {
 export default function Header() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
-
-  // Get the current search params to preserve them in navigation
   const searchParams = useSearchParams()
   const locale = searchParams?.get("locale") || "en"
 
-  // Function to append current search params to links
   const getHref = (path: string) => {
     return `${path}${searchParams?.toString() ? `?${searchParams.toString()}` : ""}`
   }
@@ -54,15 +43,42 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
+        {/* Left: Logo */}
         <div className="flex items-center gap-2">
+          <Link href={getHref("/")} className="font-bold text-xl">
+            <Logo width={150} height={50} className="hover:opacity-80 transition" />
+          </Link>
+        </div>
+
+        {/* Center: Nav on Desktop */}
+        <nav className="hidden lg:flex items-center gap-6">
+          {routes.map((route) => (
+            <Link
+              key={route.href}
+              href={getHref(route.href)}
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                pathname === route.href ? "text-primary" : "text-muted-foreground"
+              }`}
+            >
+              {locale === "en" ? route.label : translateLabel(route.label)}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Right: Language, DarkMode, Mobile Menu */}
+        <div className="flex items-center gap-2">
+          <LanguageSwitcherWithFallback />
+          <ModeToggle />
+
+          {/* Mobile Menu Button */}
           <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild className="lg:hidden">
+            <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="lg:hidden">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="lg:hidden">
+            <SheetContent side="right" className="lg:hidden">
               <nav className="flex flex-col gap-4 mt-8">
                 {routes.map((route) => (
                   <Link
@@ -79,33 +95,12 @@ export default function Header() {
               </nav>
             </SheetContent>
           </Sheet>
-          <Link href={getHref("/")} className="font-bold text-xl">
-            {locale === "en" ? "Personal Blog" : "Blog Cá Nhân"}
-          </Link>
-        </div>
-        <nav className="hidden lg:flex items-center gap-6">
-          {routes.map((route) => (
-            <Link
-              key={route.href}
-              href={getHref(route.href)}
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                pathname === route.href ? "text-primary" : "text-muted-foreground"
-              }`}
-            >
-              {locale === "en" ? route.label : translateLabel(route.label)}
-            </Link>
-          ))}
-        </nav>
-        <div className="flex items-center gap-2">
-          <LanguageSwitcherWithFallback />
-          <ModeToggle />
         </div>
       </div>
     </header>
   )
 }
 
-// Helper function to translate navigation labels
 function translateLabel(label: string): string {
   switch (label) {
     case "Home":
@@ -113,9 +108,8 @@ function translateLabel(label: string): string {
     case "Blog":
       return "Bài viết"
     case "About":
-      return "Về tôi"
+      return "Mình là ai?"
     default:
       return label
   }
 }
-

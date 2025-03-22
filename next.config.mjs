@@ -21,6 +21,14 @@ const nextConfig = {
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
   },
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack'],
+    })
+    return config
+  },
 }
 
 mergeConfig(nextConfig, userConfig)
