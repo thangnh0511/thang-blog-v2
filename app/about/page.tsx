@@ -6,12 +6,16 @@ interface AboutPageProps {
 
 export default function AboutPage({ searchParams }: AboutPageProps) {
   const locale = searchParams.locale || "en"
+  const isEnglish = locale === "en"
 
   return (
     <div className="container py-12 max-w-3xl mx-auto">
-      <h1 className="text-4xl font-bold tracking-tight mb-8">{locale === "en" ? "About Me" : "Về tôi"}</h1>
+      <h1 className="text-4xl font-bold tracking-tight mb-8">
+        {isEnglish ? "About Me" : "Về tôi"}
+      </h1>
+
       <div className="prose dark:prose-invert max-w-none">
-        {locale === "en" ? (
+        {isEnglish ? (
           <>
             <p>
               Hello! I'm a passionate writer and creator sharing my thoughts and experiences through this blog. I write
@@ -27,7 +31,9 @@ export default function AboutPage({ searchParams }: AboutPageProps) {
               love exploring new technologies and sharing what I learn with others.
             </p>
             <h2>Contact Me</h2>
-            <p>Feel free to reach out to me via email at example@example.com or connect with me on social media.</p>
+            <p>
+              Feel free to reach out to me via email at <a href="mailto:example@example.com">example@example.com</a> or connect with me on social media.
+            </p>
           </>
         ) : (
           <>
@@ -45,11 +51,12 @@ export default function AboutPage({ searchParams }: AboutPageProps) {
               thích khám phá công nghệ mới và chia sẻ những gì tôi học được với người khác.
             </p>
             <h2>Liên hệ với tôi</h2>
-            <p>Hãy liên hệ với tôi qua email tại example@example.com hoặc kết nối với tôi trên mạng xã hội.</p>
+            <p>
+              Hãy liên hệ với tôi qua email tại <a href="mailto:example@example.com">example@example.com</a> hoặc kết nối với tôi trên mạng xã hội.
+            </p>
           </>
         )}
       </div>
     </div>
   )
 }
-
