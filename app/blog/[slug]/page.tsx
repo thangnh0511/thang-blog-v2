@@ -29,19 +29,30 @@ export default async function PostPage({ params, searchParams }: PostPageProps) 
     <article className="container py-12 max-w-3xl mx-auto">
       <h1 className="text-4xl font-bold tracking-tight mb-4">{title}</h1>
       <div className="flex items-center gap-2 text-muted-foreground mb-8">
+      {post.category.name && (
+            <>
+              <span className=''>{post.category.name}</span>
+              <span>|</span>
+            </>
+          )}
         <time dateTime={date}>{formatDate(date)}</time>
-        {post.author && (
-          <>
-            <span>•</span>
-            <span>{post.author.name}</span>
-          </>
-        )}
-        {post.category && (
-          <>
-            <span>•</span>
-            <span>{post.category.title}</span>
-          </>
-        )}
+        {post.author?.fullName && (
+            <>
+              <span>|</span>
+              <div className="flex items-center gap-2">
+                {post.author.avatar && (
+                  <Image
+                    src={post.author.avatar}
+                    alt={post.author.fullName}
+                    width={24}
+                    height={24}
+                    className="rounded-full object-cover"
+                  />
+                )}
+                <span>{post.author.fullName}</span>
+              </div>
+            </>
+          )}
       </div>
 
       {post.mainImage && (

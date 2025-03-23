@@ -42,7 +42,7 @@ export default async function Home({ searchParams }: HomePageProps) {
       </section>
 
       <section className="py-12">
-        <div className="container">
+        <div className="lg:container">
           <h2 className="text-3xl font-bold tracking-tight mb-8">
             {locale === "en" ? "Latest Posts" : "Bài viết mới nhất"}
           </h2>

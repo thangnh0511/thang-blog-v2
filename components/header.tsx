@@ -31,9 +31,9 @@ function LogoSwitcher() {
   if (!mounted) return null;
 
   return currentTheme === "dark" ? (
-    <LogoWhite width={150} height={50} className="hover:opacity-80 transition" />
+    <LogoWhite width={120} height={50} className="hover:opacity-80 transition" />
   ) : (
-    <Logo width={150} height={50} className="hover:opacity-80 transition" />
+    <Logo width={120} height={50} className="hover:opacity-80 transition" />
   );
 }
 

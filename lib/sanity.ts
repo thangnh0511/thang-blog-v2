@@ -59,7 +59,7 @@ export async function getPost(slug: string) {
       "avatar": avatar.asset->url
     },
     "category": category->{
-      title
+      name
     },
     postType
   }`
