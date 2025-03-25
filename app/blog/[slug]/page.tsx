@@ -31,11 +31,11 @@ export default async function PostPage({ params, searchParams }: PostPageProps) 
       <div className="flex items-center gap-2 text-muted-foreground mb-8">
       {post.category.name && (
             <>
-              <span className=''>{post.category.name}</span>
+              <span className='font-mono'>{post.category.name}</span>
               <span>|</span>
             </>
           )}
-        <time dateTime={date}>{formatDate(date)}</time>
+        <time dateTime={date} className='font-mono'>{formatDate(date)}</time>
         {post.author?.fullName && (
             <>
               <span>|</span>
@@ -49,7 +49,7 @@ export default async function PostPage({ params, searchParams }: PostPageProps) 
                     className="rounded-full object-cover"
                   />
                 )}
-                <span>{post.author.fullName}</span>
+                <span className='font-mono'>{post.author.fullName}</span>
               </div>
             </>
           )}

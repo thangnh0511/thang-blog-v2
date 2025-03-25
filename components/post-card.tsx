@@ -68,16 +68,16 @@ export function PostCard({ post, locale = "en" }: PostCardProps) {
         <div className="flex items-center gap-2">
           {post.category && (
             <>
-              <span className=''>{post.category.name}</span>
+              <span className='text-sm font-mono'>{post.category.name}</span>
               <span>|</span>
             </>
           )}
-          <time dateTime={date}>{formatDate(date)}</time>
+          <time dateTime={date} className="text-xs  font-mono">{formatDate(date)}</time>
           {post.author?.fullName && (
             <>
               <span>|</span>
               <div className="flex items-center gap-2">
-                {post.author.avatar && (
+                {/* {post.author.avatar && (
                   <Image
                     src={post.author.avatar}
                     alt={post.author.fullName}
@@ -85,8 +85,8 @@ export function PostCard({ post, locale = "en" }: PostCardProps) {
                     height={24}
                     className="rounded-full object-cover"
                   />
-                )}
-                <span>{post.author.fullName}</span>
+                )} */}
+                <span className='text-xs  font-mono'>{post.author.fullName}</span>
               </div>
             </>
           )}
