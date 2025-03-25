@@ -12,7 +12,7 @@ const components: PortableTextComponents = {
         return null
       }
       return (
-        <div className="relative w-full my-6 aspect-video rounded-lg">
+        <div className="relative w-full my-6 aspect-video overflow-hidden rounded-lg">
           <Image src={urlForImage(value) || "/placeholder.svg"} alt={value.alt || ""} fill className="object-cover" />
           {value.caption && <div className="text-center text-sm text-muted-foreground mt-2">{value.caption}</div>}
         </div>
