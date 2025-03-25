@@ -15,8 +15,8 @@ export default function AboutPage({ searchParams }: AboutPageProps) {
   const locale = searchParams.locale || "en"
   const isEnglish = locale === "en"
 
-  const [theme, setTheme] = useState<"light" | "dark">("light")
-
+  //const [theme, setTheme] = useState<"light" | "dark">("light")
+/*
   useEffect(() => {
     const html = document.querySelector("html")
     if (theme === "dark") {
@@ -25,13 +25,14 @@ export default function AboutPage({ searchParams }: AboutPageProps) {
       html?.classList.remove("dark")
     }
   }, [theme])
-
+*/
+/*
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"))
   }
-
+*/
   return (
-    <div className="mx-auto grid grid-cols-1 lg:grid-cols-12 gap-x-4 min-h-screen bg-white dark:bg-[#121212] transition-all duration-300">
+    <div className="mx-auto grid grid-cols-1 lg:grid-cols-12 gap-x-4 min-h-80 bg-white dark:bg-[#121212] transition-all duration-300">
       <Head>
         <title>Thangg - About Me</title>
         <meta name="description" content="About Thang Nguyen" />
@@ -60,7 +61,7 @@ export default function AboutPage({ searchParams }: AboutPageProps) {
             <div className="flex flex-col lg:flex-row font-primary">
               {/* Avatar + Social Icons */}
               <div
-                className="relative w-full lg:w-1/3 h-96 lg:h-auto border-b-2 lg:border-r-2 border-black dark:border-white"
+                className="relative w-full lg:w-1/3 h-96 lg:min-h-96 lg:border-r-2 border-black dark:border-white"
                 style={{
                   backgroundImage: `url(https://images.ctfassets.net/th9kooigzgsa/3vKUkFqWOLxZ7i1ux9kFrJ/412f8f1fe5302e1c97a4b0b9741b1945/DSC04603.jpg)`,
                   backgroundRepeat: "no-repeat",
@@ -69,7 +70,7 @@ export default function AboutPage({ searchParams }: AboutPageProps) {
                 }}
               >
                 {/* Desktop social icons */}
-                <div className="hidden lg:flex flex-row gap-4 justify-between px-8 py-2 absolute bottom-0 right-0 left-0 backdrop-blur-sm border-t border-black dark:border-white">
+                <div className="hidden lg:flex flex-row gap-4 items-center justify-between px-8 py-2 absolute bottom-0 right-0 left-0 backdrop-blur-sm border-t border-black dark:border-white">
                   <a href="https://www.linkedin.com/in/thang-nh/" target="_blank" className="text-black dark:text-white hover:text-[#0e76a8]">
                     <FaLinkedinIn size={23} className="hover:scale-150 transition-all" />
                   </a>
@@ -92,9 +93,9 @@ export default function AboutPage({ searchParams }: AboutPageProps) {
 
               {/* About Description */}
               <div className="w-full lg:w-3/4 flex flex-col bg-gray-50 dark:bg-[#2a2a2a] p-4 transition-all">
-                <h1 className="text-4xl font-bold tracking-tight mb-4 text-black dark:text-white">
+                {/* <h1 className="text-4xl font-bold tracking-tight mb-4 text-black dark:text-white">
                   {isEnglish ? "About Me" : "Về tôi"}
-                </h1>
+                </h1> */}
 
                 <p className="text-base leading-7 text-gray-800 dark:text-gray-300">
                   {isEnglish ? (
@@ -118,7 +119,7 @@ export default function AboutPage({ searchParams }: AboutPageProps) {
                 </p>
 
                 {/* Mobile Social Icons */}
-                <div className="lg:hidden flex flex-row gap-4 pt-4">
+                <div className="lg:hidden flex items-center flex-row gap-4 pt-4">
                   <a href="https://www.linkedin.com/in/thang-nh/" target="_blank" className="text-black dark:text-white hover:text-[#0e76a8]">
                     <FaLinkedinIn size={23} />
                   </a>

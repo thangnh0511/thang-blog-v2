@@ -12,8 +12,14 @@ const components: PortableTextComponents = {
         return null
       }
       return (
-        <div className="relative w-full my-6 aspect-video overflow-hidden rounded-lg">
-          <Image src={urlForImage(value) || "/placeholder.svg"} alt={value.alt || ""} fill className="object-cover" />
+        <div className="relative w-full my-6 rounded-lg overflow-hidden">
+          <Image 
+            src={urlForImage(value) || "/placeholder.svg"} 
+            alt={value.alt || ""} 
+            width={800} // hoặc thay bằng giá trị phù hợp
+            height={600} // hoặc thay bằng giá trị phù hợp
+            className="w-full h-auto object-cover rounded-lg" // Cho phép chiều cao tự động
+          />
           {value.caption && <div className="text-center text-sm text-muted-foreground mt-2">{value.caption}</div>}
         </div>
       )
@@ -55,4 +61,3 @@ const components: PortableTextComponents = {
 export function PortableText({ value }: { value: any }) {
   return <PortableTextReact value={value} components={components} />
 }
-
