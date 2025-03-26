@@ -9,8 +9,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Personal Blog",
-  description: "A personal blog built with Next.js and Sanity CMS",
+  title: "Thang.",
+  description: "Thang.Personal",
   generator: "v0.dev",
   icons: {
     icon: "/favicon.ico",
