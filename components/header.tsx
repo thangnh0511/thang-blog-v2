@@ -17,6 +17,7 @@ const routes = [
   { href: "/", label: "Home" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
+  { href: "/note", label: "Note" },
 ];
 
 // Component nhỏ để xử lý đổi logo theo theme
@@ -136,6 +137,8 @@ function translateLabel(label: string): string {
       return "Trang chủ";
     case "Blog":
       return "Bài viết";
+    case "Note":
+        return "Ghi chú";
     case "About":
       return "Mình là ai?";
     default:

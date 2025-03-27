@@ -10,6 +10,7 @@ import { formatDate } from "@/lib/utils";
 
 interface Post {
   _id: string;
+  type: "blog" | "note"; 
   title_en: string;
   title_vi?: string;
   slug: string;
@@ -34,17 +35,16 @@ interface PostCardProps {
 }
 
 export function PostCard({ post, locale = "en" }: PostCardProps) {
-  const title =
-    locale === "en" ? post.title_en : post.title_vi || post.title_en;
-  const description =
-    locale === "en"
-      ? post.shortDescription_en
-      : post.shortDescription_vi || post.shortDescription_en;
+  const title = locale === "en" ? post.title_en : post.title_vi || post.title_en;
+  const description = locale === "en" ? post.shortDescription_en : post.shortDescription_vi || post.shortDescription_en;
   const date = post.createdDate || post._createdAt;
+
+  // Xác định URL dựa trên type
+  const postUrl = `/${post.type}/${post.slug}`;
 
   return (
     <Card className="overflow-hidden">
-      <Link href={`/blog/${post.slug}`}>
+      <Link href={postUrl}>
         <div className="relative aspect-video overflow-hidden">
           <Image
             src={post.mainImage || "/placeholder.svg?height=400&width=600"}
@@ -55,38 +55,27 @@ export function PostCard({ post, locale = "en" }: PostCardProps) {
         </div>
       </Link>
       <CardHeader className="p-4 pb-2">
-        <Link href={`/blog/${post.slug}`} className="hover:underline">
+        <Link href={postUrl} className="hover:underline">
           <h3 className="text-xl font-bold line-clamp-2">{title}</h3>
         </Link>
       </CardHeader>
       <CardContent className="p-4 pt-0">
-        {description && (
-          <p className="text-muted-foreground line-clamp-2">{description}</p>
-        )}
+        {description && <p className="text-muted-foreground line-clamp-2">{description}</p>}
       </CardContent>
       <CardFooter className="p-4 pt-0 text-sm text-muted-foreground">
         <div className="flex items-center gap-2">
           {post.category && (
             <>
-              <span className='text-sm font-mono'>{post.category.name}</span>
+              <span className="text-sm font-mono">{post.category.name}</span>
               <span>|</span>
             </>
           )}
-          <time dateTime={date} className="text-xs  font-mono">{formatDate(date)}</time>
+          <time dateTime={date} className="text-xs font-mono">{formatDate(date)}</time>
           {post.author?.fullName && (
             <>
               <span>|</span>
               <div className="flex items-center gap-2">
-                {/* {post.author.avatar && (
-                  <Image
-                    src={post.author.avatar}
-                    alt={post.author.fullName}
-                    width={24}
-                    height={24}
-                    className="rounded-full object-cover"
-                  />
-                )} */}
-                <span className='text-xs  font-mono'>{post.author.fullName}</span>
+                <span className="text-xs font-mono">{post.author.fullName}</span>
               </div>
             </>
           )}
@@ -95,3 +84,4 @@ export function PostCard({ post, locale = "en" }: PostCardProps) {
     </Card>
   );
 }
+

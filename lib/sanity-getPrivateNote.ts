@@ -15,13 +15,14 @@ export function urlForImage(source: any) {
 }
 
 // Update the getPosts function to handle bilingual content
-export async function getPosts(limit?: number) {
-  const query = `*[_type == "post"] | order(createdDate desc) ${limit ? `[0...${limit}]` : ""} {
+export async function getPrivateNotes(limit?: number) {
+  const query = `*[_type == "postPrivate"] | order(createdDate desc) {
     _id,
     title_en,
     title_vi,
+    password,
     "slug": slug.current,
-    "type": "blog",
+    "type": "note",
     "mainImage": image.asset->url,
     _createdAt,
     createdDate,
@@ -29,7 +30,7 @@ export async function getPosts(limit?: number) {
     shortDescription_vi,
     "author": author->{
       fullName,
-      "avatar": avatar.asset -> url
+      "avatar": avatar.asset->url
     },
     "category": category->{
       name
@@ -40,14 +41,17 @@ export async function getPosts(limit?: number) {
   return client.fetch(query)
 }
 
-// Update the getPost function to handle bilingual content
-export async function getPost(slug: string) {
-  const query = `*[_type == "post" && slug.current == $slug][0] {
+
+export async function getPrivateNoteItem(slug:any) {
+  if (!slug) return null;
+
+  const query = `*[_type == "postPrivate" && slug.current == $slug][0] {
     _id,
     title_en,
     title_vi,
+    password,
     "slug": slug.current,
-    "mainImage": image.asset->url,
+    "mainImage": image.asset->url, // Kiểm tra image có tồn tại
     _createdAt,
     createdDate,
     content_en,
@@ -57,7 +61,7 @@ export async function getPost(slug: string) {
     "author": author->{
       fullName,
       bio,
-      "avatar": avatar.asset->url
+      "avatar": avatar.asset->url // Kiểm tra author có avatar không
     },
     "category": category->{
       name
@@ -65,6 +69,13 @@ export async function getPost(slug: string) {
     postType
   }`
 
-  return client.fetch(query, { slug })
+  try {
+    return await client.fetch(query, { slug });
+  } catch (error) {
+    console.error("Sanity Fetch Error:", error);
+    return null;
+  }
 }
+
+
 
