@@ -28,8 +28,8 @@ export default function PostContent({ post, locale }: { post: any; locale: strin
   if (!isAuthenticated) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen px-4">
-        <div className="max-w-md w-full bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg">
-          <h2 className="text-lg font-semibold text-center mb-4">🔒 Enter Password</h2>
+        <div className="max-w-md w-full bg-white border-2 border-orange-500 dark:bg-gray-900 dark:border-white p-6 rounded-lg shadow-lg">
+          <h2 className="text-lg font-semibold text-center mb-4">Enter Password</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
               type="password"
@@ -39,7 +39,7 @@ export default function PostContent({ post, locale }: { post: any; locale: strin
               placeholder="Enter password..."
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}
-            <button type="submit" className="w-full bg-primary text-white py-2 rounded-md hover:opacity-90">
+            <button type="submit" className="w-full bg-slate-800 text-white py-2 rounded-md hover:opacity-90">
               Unlock
             </button>
           </form>
