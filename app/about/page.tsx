@@ -32,7 +32,7 @@ export default function AboutPage({ searchParams }: AboutPageProps) {
   }
 */
   return (
-    <div className="mx-auto grid grid-cols-1 lg:grid-cols-12 gap-x-4 min-h-80 bg-white dark:bg-[#121212] transition-all duration-300">
+    <div className="mx-auto grid grid-cols-1 lg:grid-cols-12 gap-x-4 min-h-80 bg-white dark:bg-transparent transition-all duration-300">
       <Head>
         <title>Thangg - About Me</title>
         <meta name="description" content="About Thang Nguyen" />
@@ -57,7 +57,7 @@ export default function AboutPage({ searchParams }: AboutPageProps) {
           </div> */}
 
           {/* Card */}
-          <div className="border-2 rounded-xl overflow-hidden shadow-xl border-black dark:border-white bg-white dark:bg-[#1a1a1a] transition-all duration-300">
+          <div className="border-2 rounded-xl overflow-hidden shadow-xl border-black dark:border-white bg-white dark:bg-transparent transition-all duration-300">
             <div className="flex flex-col lg:flex-row font-primary">
               {/* Avatar + Social Icons */}
               <div
@@ -92,7 +92,7 @@ export default function AboutPage({ searchParams }: AboutPageProps) {
               </div>
 
               {/* About Description */}
-              <div className="w-full lg:w-3/4 flex flex-col bg-gray-50 dark:bg-[#2a2a2a] p-4 transition-all">
+              <div className="w-full lg:w-3/4 flex flex-col bg-gray-50 dark:bg-transparent p-4 transition-all">
                 {/* <h1 className="text-4xl font-bold tracking-tight mb-4 text-black dark:text-white">
                   {isEnglish ? "About Me" : "Về tôi"}
                 </h1> */}
