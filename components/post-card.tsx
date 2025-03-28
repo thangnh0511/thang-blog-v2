@@ -43,9 +43,9 @@ export function PostCard({ post, locale = "en" }: PostCardProps) {
   const postUrl = `/${post.type}/${post.slug}`;
 
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden border-2 border-gray-900 dark:border-white">
       <Link href={postUrl}>
-        <div className="relative aspect-video overflow-hidden">
+        <div className="relative aspect-video overflow-hidden border-b-2 border-gray-900 dark:border-white">
           <Image
             src={post.mainImage || "/placeholder.svg?height=400&width=600"}
             alt={title}
