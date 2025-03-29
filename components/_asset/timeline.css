@@ -1,0 +1,148 @@
+/* Light Mode Variables */
+:root,
+:root:not(.dark) {
+  --bg-color: #ffffff;
+  --text-color: #232529;
+  --border-color: #94a3b8;
+  --highlight-color: #74ee15;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode Variables */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #1e1e1e;
+    --text-color: #ffffff;
+    --border-color: #525252;
+    --highlight-color: #74ee15;
+    --shadow-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Nếu class .dark có trên <html>, override light mode */
+html.dark {
+  --bg-color: #1e1e1e;
+  --text-color: #ffffff;
+  --border-color: #525252;
+  --highlight-color: #74ee15;
+  --shadow-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Áp dụng màu nền & text theo biến */
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+}
+
+.timeline-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.timeline-day {
+  margin-bottom: 40px;
+}
+
+.day-title {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.transport-dot {
+  position: absolute;
+  left: 0px;
+  top: 0;
+  width: 22px;
+  height: 22px;
+  background-color: var(--text-color);
+  border-radius: 50%;
+  z-index: 2;
+  transition: transform 0.3s ease-in-out;
+}
+
+.timeline-event {
+  position: relative;
+  padding-left: 30px;
+  margin-left: 12px;
+  margin-bottom: 30px;
+}
+
+/* Khi phần tử xuất hiện trong màn hình */
+.timeline-event.in-view {
+  border-color: var(--text-color);
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.timeline-event::after {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: -2px;
+  width: 24px;
+  height: 24px;
+  background-color: var(--bg-color);
+  border-radius: 50%;
+  border: 2px solid #ffe700;
+  z-index: 1;
+}
+
+.timeline-event::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 0;
+  width: 3px;
+  height: calc(100% + 36px);
+  background-color: var(--border-color);
+  z-index: 0;
+}
+
+.timeline-event:last-child::before {
+  display: none;
+}
+
+.event-time {
+  width: 100%;
+  font-weight: bold;
+  text-align: left;
+  padding-right: 20px;
+  margin-bottom: 10px;
+}
+
+.event-details {
+  background: var(--bg-color);
+  padding: 10px 20px;
+  border-left: 2px var(--highlight-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px var(--shadow-color);
+  flex-grow: 1;
+}
+
+.event-location {
+  font-size: 18px;
+  font-weight: 600;
+  /* margin-bottom: 5px; */
+}
+
+.event-map {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.event-map svg {
+  margin-right: 5px;
+}
+
+.event-move,
+.event-description {
+  font-size: 14px;
+  margin: 5px 0;
+}

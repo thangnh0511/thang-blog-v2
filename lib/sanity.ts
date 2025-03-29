@@ -62,7 +62,16 @@ export async function getPost(slug: string) {
     "category": category->{
       name
     },
-    postType
+    postType,
+    "metadata": metadata->{
+      meta_title_en,
+      meta_title_vi,
+      type,
+      cover_image,
+      metadata_en,
+      metadata_vi,
+      gallery_metadata
+    }
   }`
 
   return client.fetch(query, { slug })

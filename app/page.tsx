@@ -2,6 +2,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { getPosts } from "@/lib/sanity";
 import { PostCard } from "@/components/post-card";
+import * as React from "react";
+import {HeroUIProvider} from "@heroui/system";
 
 interface HomePageProps {
   searchParams?: Record<string, string | string[] | undefined>;
@@ -13,6 +15,7 @@ export default async function Home({ searchParams }: HomePageProps) {
   const posts = await getPosts(3);
 
   return (
+    <HeroUIProvider>
     <div className="container py-12 md:py-20">
       <section className="space-y-6 pb-12 pt-6 md:pb-16 md:pt-10 lg:py-32">
         <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
@@ -61,5 +64,6 @@ export default async function Home({ searchParams }: HomePageProps) {
         </div>
       </section>
     </div>
+    </HeroUIProvider>
   );
 }
