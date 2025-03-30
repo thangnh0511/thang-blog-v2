@@ -10,6 +10,8 @@ import {
   Button,
   useDisclosure,
 } from "@heroui/react";
+import { LiaMapMarkedAltSolid } from "react-icons/lia";
+import { TbPhotoCircle } from "react-icons/tb";
 
 interface ModalInfoDialogProps {
   show: boolean;
@@ -70,9 +72,14 @@ export default function ModalInfoDialog({ show, onClose, metadata, locale }: Mod
       onClose={onClose} className='dark:border-y-2 dark:border-l-2 dark:border-[#ffe700]'>
         <DrawerContent>
           <>
-            <DrawerHeader className="flex justify-between items-center">
+            <DrawerHeader className="flex justify-start items-center">
               {/* <h2 className="text-xl font-bold"> */}
                 {/* {metadata?.type === "route" ? "Travel Route" : "Gallery"} */}
+              {metadata?.type==='route'?(<>
+                <LiaMapMarkedAltSolid className="text-2xl mr-2" />
+              </>):(<>
+                <TbPhotoCircle className="text-2xl mr-2" />
+              </>)}
                 {metaTitle}
               {/* </h2> */}
               {/* <Button variant="light" color="danger" onPress={onClose}>✖</Button> */}
@@ -103,11 +110,11 @@ export default function ModalInfoDialog({ show, onClose, metadata, locale }: Mod
                 <p>No metadata available.</p>
               )}
             </DrawerBody>
-            {/* <DrawerFooter>
+            <DrawerFooter className='block lg:hidden'>
               <Button color="danger" variant="light" onPress={onClose}>
                 Close
               </Button>
-            </DrawerFooter> */}
+            </DrawerFooter>
           </>
         </DrawerContent>
       </Drawer>
