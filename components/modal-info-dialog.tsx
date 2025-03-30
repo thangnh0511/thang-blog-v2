@@ -12,6 +12,7 @@ import {
 } from "@heroui/react";
 import { LiaMapMarkedAltSolid } from "react-icons/lia";
 import { TbPhotoCircle } from "react-icons/tb";
+import Gallery from "./gallery-drawer-content";
 
 interface ModalInfoDialogProps {
   show: boolean;
@@ -38,7 +39,11 @@ export default function ModalInfoDialog({ show, onClose, metadata, locale }: Mod
     : metadata?.metadata_vi?.metadata_raw_vi?.code || "{}";
 
   const metaTitle = locale === "en" ? metadata?.meta_title_en : metadata?.meta_title_vi;
-  const gallery = Array.isArray(metadata?.gallery_metadata) ? metadata.gallery_metadata : [];
+//   const gallery = Array.isArray(metadata?.gallery_metadata) ? metadata.gallery_metadata : [];
+  
+  const metaGallery = metadata?.gallery_metadata ? metadata?.gallery_metadata : {};
+
+  console.log(metaGallery)
 
   // Chuyển đổi string metaCode sang JSON
   let parsedData;
@@ -92,8 +97,10 @@ export default function ModalInfoDialog({ show, onClose, metadata, locale }: Mod
                   <p className="text-red-500">Invalid JSON data</p>
                 )
               ) : metadata?.type === "gallery" ? (
-                <div className="grid grid-cols-2 gap-4">
-                  {gallery.length > 0 ? (
+                <div className="">
+                 <Gallery data={metaGallery} locale={locale}/>
+                  {/* {metaGallery.length > 0 ?
+                   (
                     gallery.map((img: any, index: number) => (
                       <img
                         key={index}
@@ -102,9 +109,10 @@ export default function ModalInfoDialog({ show, onClose, metadata, locale }: Mod
                         className="w-full h-auto rounded-md"
                       />
                     ))
-                  ) : (
+                  ) 
+                  : (
                     <p className="text-gray-500">No images available.</p>
-                  )}
+                  )} */}
                 </div>
               ) : (
                 <p>No metadata available.</p>
