@@ -44,7 +44,8 @@ export function PostCard({ post, locale = "en" }: PostCardProps) {
 
   return (
     <Card className="overflow-hidden border-2 border-gray-900 dark:border-white">
-      <Link href={postUrl}>
+      {post.type === 'blog' ? 
+      ( <Link href={postUrl}>
         <div className="relative aspect-video overflow-hidden border-b-2 border-gray-900 dark:border-white">
           <Image
             src={post.mainImage || "/placeholder.svg?height=400&width=600"}
@@ -53,10 +54,13 @@ export function PostCard({ post, locale = "en" }: PostCardProps) {
             className="object-cover transition-transform hover:scale-105"
           />
         </div>
-      </Link>
+      </Link>) 
+      :
+      (<></>) 
+    }
       <CardHeader className="p-4 pb-2">
         <Link href={postUrl} className="hover:underline">
-          <h3 className="text-xl font-bold line-clamp-2">{title}</h3>
+          <h3 className="text-xl font-bold line-clamp-2">{post.type ==='blog'? title : post.slug}</h3>
         </Link>
       </CardHeader>
       <CardContent className="p-4 pt-0">

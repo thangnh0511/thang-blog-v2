@@ -2362,7 +2362,7 @@
     "@react-types/shared" "3.28.0"
     "@tanstack/react-virtual" "3.11.3"
 
-"@heroui/shared-icons@2.1.6":
+"@heroui/shared-icons@2.1.6", "@heroui/shared-icons@^2.1.6":
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/@heroui/shared-icons/-/shared-icons-2.1.6.tgz#7339462c5233c8127286bedf898c8250bf05da2a"
   integrity sha512-4Gey+FJF4XBlMw5p9D2geOEAED8xCxuksurWKUz7eAoAivRRsZJf9wwUsKvNfrmboBUoytdxpUDbVgnckx/G8A==
