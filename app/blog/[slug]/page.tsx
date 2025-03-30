@@ -46,11 +46,11 @@ export default async function PostPage({ params, searchParams }: PostPageProps) 
   }
 
   return (
-    <article className="container py-12 max-w-3xl mx-auto">
+    <article className="container py-12 max-w-3xl mx-auto gap-2">
       <h1 className="text-4xl font-bold tracking-tight mb-4">{title}</h1>
-      <div className="flex items-center gap-2 text-muted-foreground mb-8">
+      <div className="flex items-center gap-2 text-muted-foreground my-1">
         {/* Author and Date Information */}
-        <div className="text-sm text-black mb-6">
+        <div className="text-sm text-black my-1">
           <div className="flex text-black items-center space-x-4 rtl:space-x-reverse">
             <Image
               src={post.author.avatar || "/placeholder.svg"}
@@ -77,7 +77,7 @@ export default async function PostPage({ params, searchParams }: PostPageProps) 
 
       {/* Main Image */}
       {post.mainImage && (
-        <div className="relative aspect-video mb-8 overflow-hidden rounded-lg">
+        <div className="relative aspect-video my-1 overflow-hidden rounded-lg">
           <Image src={post.mainImage || "/placeholder.svg"} alt={title} fill className="object-cover" priority />
         </div>
       )}

@@ -34,10 +34,10 @@ const eventVariants = {
   exit: { opacity: 0, y: -50, transition: { duration: 0.6 } },
 };
 
-const textColorVariants = {
-  hidden: { color: "#6b7280" },
-  visible: { color: "#ffe700", transition: { duration: 0.6 } },
-};
+// const textColorVariants = {
+//   hidden: { color: "#6b7280" },
+//   visible: { color: "#ffe700", transition: { duration: 0.6 } },
+// };
 
 // Extract day number from the title
 const extractDayNumber = (title: string): number => {
@@ -107,7 +107,7 @@ const Timeline: React.FC<TimelineProps> = ({ data }) => {
                         <FaMapMarkerAlt />
                         <motion.div
                           className="event-location text-xl text-black dark:text-[#ffe700]"
-                          variants={textColorVariants}
+                        //   variants={textColorVariants}
                         >
                           {event?.Location}
                         </motion.div>
@@ -115,7 +115,7 @@ const Timeline: React.FC<TimelineProps> = ({ data }) => {
                     ) : (
                       <motion.div
                         className="event-location text-xl text-black dark:text-[#ffe700]"
-                        variants={textColorVariants}
+                        // variants={textColorVariants}
                       >
                         {event?.Location}
                       </motion.div>

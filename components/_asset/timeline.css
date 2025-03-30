@@ -5,6 +5,7 @@
   --text-color: #232529;
   --border-color: #94a3b8;
   --highlight-color: #74ee15;
+  --highlight-color-2: #232529;
   --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -15,6 +16,7 @@
     --text-color: #ffffff;
     --border-color: #525252;
     --highlight-color: #74ee15;
+    --highlight-color-2: #ffe700;
     --shadow-color: rgba(255, 255, 255, 0.1);
   }
 }
@@ -25,6 +27,7 @@ html.dark {
   --text-color: #ffffff;
   --border-color: #525252;
   --highlight-color: #74ee15;
+  --highlight-color-2: #ffe700;
   --shadow-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -59,7 +62,8 @@ html {
   top: 0;
   width: 22px;
   height: 22px;
-  background-color: var(--text-color);
+  /* background-color: var(--text-color); */
+  border: 2px solid var(--highlight-color-2);
   border-radius: 50%;
   z-index: 2;
   transition: transform 0.3s ease-in-out;
@@ -74,7 +78,7 @@ html {
 
 /* Khi phần tử xuất hiện trong màn hình */
 .timeline-event.in-view {
-  border-color: var(--text-color);
+  border-color: 2px solid var(--highlight-color-2);
   transform: translateY(0);
   opacity: 1;
 }
@@ -88,7 +92,7 @@ html {
   height: 24px;
   background-color: var(--bg-color);
   border-radius: 50%;
-  border: 2px solid #ffe700;
+  border: 2px solid var(--highlight-color-2);
   z-index: 1;
 }
 
@@ -127,6 +131,7 @@ html {
 .event-location {
   font-size: 18px;
   font-weight: 600;
+  color: var(--highlight-color-2);
   /* margin-bottom: 5px; */
 }
 

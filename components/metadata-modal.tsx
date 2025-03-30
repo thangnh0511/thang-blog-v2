@@ -30,7 +30,7 @@ export default function MetadataModal({
         className="inline-block w-fit cursor-pointer"
         onClick={handleShowModal}
       >
-        <div className="text-sm text-black dark:text-gray-400 flex flex-row font-raleway my-2 mb-4 shadow-md rounded-lg inline-block hover:shadow-lg py-2 px-3 cursor-pointer">
+        <div className="text-sm text-black dark:text-white flex flex-row font-raleway my-1 mb-4 shadow-md rounded-lg inline-block hover:shadow-lg py-2 px-3 cursor-pointer dark:border-2 dark:border-slate-200 dark:hover:text-[#ffe700] dark:hover:border-[#ffe700]">
           <FaMap className="text-2xl mr-2" />
           <div className="">
             <div className="text-lg font-bold">{metaTitle}</div>
