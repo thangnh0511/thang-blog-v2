@@ -1,8 +1,7 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { PortableText } from "@/components/portable-text"
 import Image from "next/image"
 import { formatDate } from "@/lib/utils"
@@ -15,23 +14,45 @@ export default function PostContent({ post, locale }: { post: any; locale: strin
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
+  // Check if we're in a browser environment
+  const [isBrowser, setIsBrowser] = useState(false)
+  useEffect(() => {
+    setIsBrowser(true)
+  }, [])
+
   const title = locale === "en" ? post.title_en : post.title_vi || post.title_en
   const content = locale === "en" ? post.content_en : post.content_vi || post.content_en
   const date = post.createdDate || post._createdAt
 
+  // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    submitPassword()
+  }
+
+  // Separate function for button click
+  const handleButtonClick = () => {
+    submitPassword()
+  }
+
+  // Common password submission logic
+  const submitPassword = () => {
+    if (isLoading) return // Prevent multiple submissions
+
     setIsLoading(true)
+    console.log("Password submission attempted:", password) // Debug log
 
     // Simulate a slight delay for better UX
     setTimeout(() => {
       if (password === post.password) {
         setIsAuthenticated(true)
         setError("")
+        console.log("Authentication successful") // Debug log
       } else {
         setError(
           locale === "en" ? "❌ Incorrect password. Please try again." : "❌ Mật khẩu không đúng. Vui lòng thử lại.",
         )
+        console.log("Authentication failed") // Debug log
       }
       setIsLoading(false)
     }, 500)
@@ -40,7 +61,7 @@ export default function PostContent({ post, locale }: { post: any; locale: strin
   // If not authenticated, show password input form
   if (!isAuthenticated) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-96 px-4">
+      <div className="flex flex-col items-center justify-center min-h-96 px-4 py-8">
         <Card className="max-w-md w-full">
           <CardHeader className="flex gap-3">
             <div className="flex flex-col">
@@ -52,7 +73,7 @@ export default function PostContent({ post, locale }: { post: any; locale: strin
           </CardHeader>
           <Divider />
           <CardBody>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} id="password-form" className="space-y-4">
               <Input
                 type="password"
                 label={locale === "en" ? "Password" : "Mật khẩu"}
@@ -64,17 +85,26 @@ export default function PostContent({ post, locale }: { post: any; locale: strin
                 }
                 isInvalid={!!error}
                 errorMessage={error}
-                autoFocus
+                autoFocus={isBrowser}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault()
+                    submitPassword()
+                  }
+                }}
               />
             </form>
           </CardBody>
           <CardFooter>
             <Button
+              type="submit"
+              form="password-form"
               color="primary"
-              className="w-full"
-              onClick={handleSubmit}
+              className="w-full touch-manipulation"
+              onClick={handleButtonClick}
               isLoading={isLoading}
               startContent={!isLoading && <LockFilledIcon />}
+              style={{ touchAction: "manipulation" }}
             >
               {locale === "en" ? "Unlock" : "Mở khóa"}
             </Button>
