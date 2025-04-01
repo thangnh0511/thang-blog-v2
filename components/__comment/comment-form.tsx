@@ -5,6 +5,9 @@ import type React from "react"
 import { useState } from "react"
 import { submitComment } from "@/app/utils/comment"
 import { toast } from "react-hot-toast"  // Import toast
+import {Textarea} from "@heroui/react";
+import {Input} from "@heroui/react";
+
 
 
 interface CommentFormProps {
@@ -75,7 +78,9 @@ export function CommentForm({ postId, locale = "en" , onCommentSubmitted}: Comme
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-1">
-          <div className="space-y-2">
+          {/* <Input label={locale === "en" ? "Name" : "Tên"} type="text" variant="underlined" /> */}
+          <Input id="name" name='name' label={locale === "en" ? "Name" : "Tên"} placeholder={locale === "en" ? "Your name" : "Tên của bạn"} type="text" variant="underlined" disabled={isSubmitting}/>
+          {/* <div className="space-y-2">
             <label htmlFor="name" className="text-sm font-medium">
               {locale === "en" ? "Name" : "Tên"}
             </label>
@@ -88,7 +93,7 @@ export function CommentForm({ postId, locale = "en" , onCommentSubmitted}: Comme
               placeholder={locale === "en" ? "Your name" : "Tên của bạn"}
               disabled={isSubmitting}
             />
-          </div>
+          </div> */}
 
           {/* <div className="space-y-2">
             <label htmlFor="email" className="text-sm font-medium">
@@ -107,7 +112,18 @@ export function CommentForm({ postId, locale = "en" , onCommentSubmitted}: Comme
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="comment" className="text-sm font-medium">
+          <Textarea
+            key="comment"
+            name='comment'
+            id="comment"
+            className="col-span-12 md:col-span-6 mb-6 md:mb-0"
+            label={locale === "en" ? "Comment" : "Bình luận"}
+            labelPlacement="outside"
+            placeholder={locale === "en" ? "Your comment" : "Nội dung bình luận"}
+            variant="underlined"
+            disabled={isSubmitting}
+          />
+          {/* <label htmlFor="comment" className="text-sm font-medium">
             {locale === "en" ? "Comment" : "Bình luận"}
           </label>
           <textarea
@@ -118,7 +134,7 @@ export function CommentForm({ postId, locale = "en" , onCommentSubmitted}: Comme
             className="flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             placeholder={locale === "en" ? "Your comment" : "Nội dung bình luận"}
             disabled={isSubmitting}
-          />
+          /> */}
         </div>
 
         <button

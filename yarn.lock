@@ -1990,9 +1990,9 @@
     "@react-stately/menu" "3.9.2"
     "@react-types/menu" "3.9.15"
 
-"@heroui/form@2.1.15":
+"@heroui/form@2.1.15", "@heroui/form@^2.1.15":
   version "2.1.15"
-  resolved "https://registry.npmjs.org/@heroui/form/-/form-2.1.15.tgz"
+  resolved "https://registry.yarnpkg.com/@heroui/form/-/form-2.1.15.tgz#08afc9bc88feb6a706fa4d7f77fdd2b9236f971a"
   integrity sha512-dzI9goENLrO5nLovI1T5yJiCxewl3vmTxzqLrrVCMh6SvLKSPyOPAYLER6V36VJ2nJ4Hfm/EiwQyYNa4cmNTCA==
   dependencies:
     "@heroui/react-utils" "2.1.8"
@@ -2038,9 +2038,9 @@
     "@react-types/textfield" "3.12.0"
     input-otp "1.4.1"
 
-"@heroui/input@2.4.16":
+"@heroui/input@2.4.16", "@heroui/input@^2.4.16":
   version "2.4.16"
-  resolved "https://registry.npmjs.org/@heroui/input/-/input-2.4.16.tgz"
+  resolved "https://registry.yarnpkg.com/@heroui/input/-/input-2.4.16.tgz#67d96de44ec74181bc6f7c59fcff6880b4a4285c"
   integrity sha512-gSEalFg2usD7SjkevRyulvbJksecW/L9vqZWGHgcm6NpOlt5lGb/b6E2AEuhNFWbrN4pgUmfFUqqmZfFbc4M9Q==
   dependencies:
     "@heroui/form" "2.1.15"
@@ -2525,6 +2525,22 @@
 "@heroui/toast@2.0.6":
   version "2.0.6"
   resolved "https://registry.npmjs.org/@heroui/toast/-/toast-2.0.6.tgz"
+  integrity sha512-dJrHWkxc9s5sggvP8gspTzleIcm90nCWebl19EJRKyHOKC56iv4mQvpUMQ4GbNYm7dfS7N/pOk7sHEcR45c18w==
+  dependencies:
+    "@heroui/react-utils" "2.1.8"
+    "@heroui/shared-icons" "2.1.6"
+    "@heroui/shared-utils" "2.1.7"
+    "@heroui/spinner" "2.2.13"
+    "@heroui/use-is-mobile" "2.2.7"
+    "@react-aria/interactions" "3.24.0"
+    "@react-aria/toast" "3.0.0-beta.19"
+    "@react-aria/utils" "3.28.0"
+    "@react-stately/toast" "3.0.0-beta.7"
+    "@react-stately/utils" "3.10.5"
+
+"@heroui/toast@^2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@heroui/toast/-/toast-2.0.6.tgz#b98aef857156c66768b2354e99dc357aeef4b8ee"
   integrity sha512-dJrHWkxc9s5sggvP8gspTzleIcm90nCWebl19EJRKyHOKC56iv4mQvpUMQ4GbNYm7dfS7N/pOk7sHEcR45c18w==
   dependencies:
     "@heroui/react-utils" "2.1.8"

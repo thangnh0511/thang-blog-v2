@@ -26,12 +26,12 @@ export function CommentList({ comments, locale = "en" }: CommentListProps) {
   return (
     <div className="space-y-6">
       {comments.map((comment) => (
-        <div key={comment._id} className="bg-card rounded-lg p-4 shadow-sm">
-          <div className="flex items-center justify-between mb-2">
-            <h4 className="font-medium">{comment.name}</h4>
-            <time className="text-sm text-muted-foreground">{formatDate(comment.createdAt)}</time>
+        <div key={comment._id} className="p-4 border-b-2 border-slate-300">
+          <div className="flex items-center justify-between mb-4">
+            <h4 className="font-mono">{comment.name}</h4>
+            <time className="text-sm font-mono text-muted-foreground">{formatDate(comment.createdAt)}</time>
           </div>
-          <p className="text-sm whitespace-pre-line">{comment.comment}</p>
+          <p className="text-sm font-mono whitespace-pre-line">{comment.comment}</p>
         </div>
       ))}
     </div>
