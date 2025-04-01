@@ -43,7 +43,7 @@ export default function ModalInfoDialog({ show, onClose, metadata, locale }: Mod
   
   const metaGallery = metadata?.gallery_metadata ? metadata?.gallery_metadata : {};
 
-  console.log(metaGallery)
+  // console.log(metaGallery)
 
   // Chuyển đổi string metaCode sang JSON
   let parsedData;

@@ -4,13 +4,16 @@ import type React from "react"
 
 import { useState } from "react"
 import { submitComment } from "@/app/utils/comment"
+import { toast } from "react-hot-toast"  // Import toast
+
 
 interface CommentFormProps {
   postId: string
   locale?: string
+  onCommentSubmitted?: () => void
 }
 
-export function CommentForm({ postId, locale = "en" }: CommentFormProps) {
+export function CommentForm({ postId, locale = "en" , onCommentSubmitted}: CommentFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formError, setFormError] = useState<string | null>(null)
   const [formSuccess, setFormSuccess] = useState<string | null>(null)
@@ -20,30 +23,39 @@ export function CommentForm({ postId, locale = "en" }: CommentFormProps) {
     setIsSubmitting(true)
     setFormError(null)
     setFormSuccess(null)
-
+  
     const formData = new FormData(e.currentTarget)
     formData.append("postId", postId)
-
+  
     try {
       const result = await submitComment(formData)
-
+  
       if (result.success) {
-        setFormSuccess(
-          locale === "en"
-            ? "Comment submitted successfully! It will appear shortly."
-            : "Bình luận đã được gửi thành công! Nó sẽ xuất hiện trong thời gian ngắn.",
-        )
-        // Reset the form
+        toast.success(locale === "en" ? "Comment submitted successfully!" : "Bình luận đã được gửi thành công!", {
+          position: window.innerWidth < 640 ? "bottom-center" : "bottom-right",
+        })
+  
+        // setFormSuccess(locale === "en"
+        //   ? "Comment submitted successfully! It will appear shortly."
+        //   : "Bình luận đã được gửi thành công! Nó sẽ xuất hiện trong thời gian ngắn."
+        // )
         e.currentTarget.reset()
       } else {
-        setFormError(result.message)
+        toast.error(result.message, {
+          position: window.innerWidth < 640 ? "bottom-center" : "bottom-right",
+        })
+        // setFormError(result.message)
       }
     } catch (error) {
-      setFormError("An unexpected error occurred. Please try again.")
+      toast.error(locale === "en" ? "An unexpected error occurred. Please try again." : "Đã xảy ra lỗi, vui lòng thử lại.", {
+        position: window.innerWidth < 640 ? "bottom-center" : "bottom-right",
+      })
+      // setFormError("An unexpected error occurred. Please try again.")
     } finally {
       setIsSubmitting(false)
     }
   }
+  
 
   return (
     <div className="w-full border rounded-xl p-6">
@@ -72,13 +84,13 @@ export function CommentForm({ postId, locale = "en" }: CommentFormProps) {
               name="name"
               type="text"
               required
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               placeholder={locale === "en" ? "Your name" : "Tên của bạn"}
               disabled={isSubmitting}
             />
           </div>
 
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <label htmlFor="email" className="text-sm font-medium">
               {locale === "en" ? "Email" : "Email"}
             </label>
@@ -91,7 +103,7 @@ export function CommentForm({ postId, locale = "en" }: CommentFormProps) {
               placeholder={locale === "en" ? "Your email" : "Email của bạn"}
               disabled={isSubmitting}
             />
-          </div>
+          </div> */}
         </div>
 
         <div className="space-y-2">

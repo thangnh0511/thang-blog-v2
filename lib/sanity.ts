@@ -95,7 +95,7 @@ export async function getComments(postId: string) {
 // Add function to submit a comment
 export async function submitComment(data: {
   name: string
-  email: string
+  // email: string
   comment: string
   postId: string
 }) {
@@ -103,7 +103,7 @@ export async function submitComment(data: {
     return await client.create({
       _type: "comment",
       name: data.name,
-      email: data.email,
+      // email: data.email,
       comment: data.comment,
       post: {
         _type: "reference",

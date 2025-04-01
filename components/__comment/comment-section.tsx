@@ -1,5 +1,5 @@
 import { getComments } from "@/lib/sanity"
-import { CommentsSectionClient } from "./comments-section-client"
+import { CommentsSectionClient } from "./comment-section-client"
 
 interface CommentsSectionProps {
   postId: string

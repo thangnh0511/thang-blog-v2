@@ -7,6 +7,7 @@ import Image from "next/image"
 import { formatDate } from "@/lib/utils"
 import { Card, CardHeader, CardBody, CardFooter, Input, Button, Divider } from "@heroui/react"
 import { LockFilledIcon } from "@heroui/shared-icons"
+import { Comments } from "@/components/__comment/comments"
 
 export default function PostContent({ post, locale }: { post: any; locale: string }) {
   const [password, setPassword] = useState("")
@@ -156,6 +157,9 @@ export default function PostContent({ post, locale }: { post: any; locale: strin
       <div className="prose dark:prose-invert max-w-none">
         <PortableText value={content} />
       </div>
+
+            {/* Add the Comments component */}
+            <Comments postId={post._id} locale={locale} />
     </article>
   )
 }
