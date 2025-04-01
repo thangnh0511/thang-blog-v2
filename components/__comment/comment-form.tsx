@@ -74,7 +74,7 @@ export function CommentForm({ postId, locale = "en" , onCommentSubmitted}: Comme
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-1">
           <div className="space-y-2">
             <label htmlFor="name" className="text-sm font-medium">
               {locale === "en" ? "Name" : "Tên"}
