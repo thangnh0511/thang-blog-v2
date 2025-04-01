@@ -6,6 +6,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ToastProvider } from "@/components/toast-provider"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,6 +40,7 @@ export default function RootLayout({
               <Footer />
             </div>
           </Suspense>
+          <ToastProvider />
         </ThemeProvider>
       </body>
     </html>

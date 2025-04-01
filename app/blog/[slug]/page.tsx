@@ -6,6 +6,7 @@ import { formatDate } from "@/lib/utils"
 import { IoMdTime } from "react-icons/io"
 import MetadataModal from "@/components/metadata-modal"
 import TravelRouteModal from "@/components/metadata-for-route"
+import { Comments } from "@/components/__comment/comments"
 
 
 interface PostPageProps {
@@ -86,6 +87,12 @@ export default async function PostPage({ params, searchParams }: PostPageProps) 
       <div className="prose dark:prose-invert max-w-none">
         <PortableText value={content} />
       </div>
+
+
+      {/* Add the Comments component */}
+      <Comments postId={post._id} locale={locale} />
+
+
     </article>
   )
 }

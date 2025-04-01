@@ -6,6 +6,7 @@ const client = createClient({
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
   apiVersion: "2023-05-03",
   useCdn: process.env.NODE_ENV === "production",
+  token: process.env.SANITY_API_TOKEN, // Only needed for comment submission
 })
 
 const builder = imageUrlBuilder(client)
@@ -75,5 +76,45 @@ export async function getPost(slug: string) {
   }`
 
   return client.fetch(query, { slug })
+}
+
+
+
+// Add a function to get approved comments for a post
+export async function getComments(postId: string) {
+  const query = `*[_type == "comment" && post._ref == $postId && isApproved == true] | order(createdAt desc) {
+    _id,
+    name,
+    comment,
+    createdAt
+  }`
+
+  return client.fetch(query, { postId })
+}
+
+// Add function to submit a comment
+export async function submitComment(data: {
+  name: string
+  email: string
+  comment: string
+  postId: string
+}) {
+  try {
+    return await client.create({
+      _type: "comment",
+      name: data.name,
+      email: data.email,
+      comment: data.comment,
+      post: {
+        _type: "reference",
+        _ref: data.postId,
+      },
+      createdAt: new Date().toISOString(),
+      isApproved: true, // Set to true by default so comments appear immediately
+    })
+  } catch (error) {
+    console.error("Error submitting comment:", error)
+    throw new Error("Could not submit comment")
+  }
 }
 
