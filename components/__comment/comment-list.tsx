@@ -6,6 +6,7 @@ interface Comment {
   _id: string
   name: string
   comment: string
+  avatar: string
   createdAt: string
 }
 
@@ -35,7 +36,7 @@ export function CommentList({ comments, locale = "en" }: CommentListProps) {
           alt="avata"
           height={40}
           radius="sm"
-          src="https://avatar.iran.liara.run/public/26"
+          src={comment.avatar}
           width={40}
         />
         <div className="flex flex-col">

@@ -86,6 +86,7 @@ export async function getComments(postId: string) {
     _id,
     name,
     comment,
+    avatar,
     createdAt
   }`
 

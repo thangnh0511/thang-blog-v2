@@ -21,6 +21,7 @@ export function CommentForm({ postId, locale = "en" , onCommentSubmitted}: Comme
   const [formError, setFormError] = useState<string | null>(null)
   const [formSuccess, setFormSuccess] = useState<string | null>(null)
 
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setIsSubmitting(true)
