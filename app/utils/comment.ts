@@ -2,6 +2,13 @@
 
 import { createClient } from "@sanity/client";
 
+// Function to generate a random avatar URL
+function getRandomAvatarUrl(): string {
+  const baseUrl = "https://avatar.iran.liara.run/public/";
+  const randomNumber = Math.floor(Math.random() * 100) + 1; // Generates a number from 1 to 100
+  return `${baseUrl}${randomNumber}`;
+}
+
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
@@ -24,7 +31,7 @@ export async function submitComment(formData: FormData) {
       };
     }
 
-    // Chuẩn bị dữ liệu comment với kiểu dữ liệu cụ thể
+    // Prepare the comment data
     const commentData: {
       _type: "comment";
       name: string;
@@ -33,6 +40,7 @@ export async function submitComment(formData: FormData) {
       createdAt: string;
       isApproved: boolean;
       email?: string;
+      avatar: string;
     } = {
       _type: "comment",
       name,
@@ -42,29 +50,34 @@ export async function submitComment(formData: FormData) {
         _ref: postId,
       },
       createdAt: new Date().toISOString(),
-      isApproved: true, // Có thể đổi thành false nếu cần duyệt trước khi hiển thị
+      isApproved: true, // Can change to false if approval is needed
+      avatar: getRandomAvatarUrl(), // Adding random avatar URL
     };
 
-    // Chỉ thêm email nếu nó không rỗng
+    // Only add email if it is provided
     if (email) {
       commentData.email = email;
     }
 
-    // Gửi comment lên Sanity
+    // Send the comment to Sanity
     const response = await client.create(commentData);
 
-    // Kiểm tra response từ Sanity
+    // Check the response from Sanity
     if (response && response._id) {
       return {
         success: true,
-        message:
-          "Comment submitted successfully! It will appear after approval.",
+        message: "Comment submitted successfully! It will appear after approval.",
       };
     } else {
       throw new Error("Failed to create comment in Sanity.");
     }
   } catch (error: any) {
-    console.error("Error submitting comment:", error.message);
+    console.error("Error submitting comment:", error);
+
+    // If the error is related to Sanity, log the response for debugging
+    if (error.response) {
+      console.error("Sanity API Error:", error.response);
+    }
 
     return {
       success: false,
