@@ -96,10 +96,11 @@ export function CommentForm({
             id="name"
             name="name"
             label={locale === "en" ? "Name" : "Tên"}
-            placeholder={locale === "en" ? "Your name" : "Tên của bạn"}
+            // placeholder={locale === "en" ? "Your name" : "Tên của bạn"}
             type="text"
             // variant="underlined"
             labelPlacement="outside"
+            key='outside'
             disabled={isSubmitting}
             required
           />
@@ -121,11 +122,12 @@ export function CommentForm({
             id="comment"
             name="comment"
             label={locale === "en" ? "Comment" : "Bình luận"}
-            placeholder={
-              locale === "en" ? "Your comment" : "Nội dung bình luận"
-            }
+            // placeholder={
+            //   locale === "en" ? "Your comment" : "Nội dung bình luận"
+            // }
             // variant="underlined"
             labelPlacement="outside"
+            key='outside'
             disabled={isSubmitting}
             required
           />
