@@ -6,6 +6,9 @@ import { Form, Input, Textarea, Button, CardHeader } from "@heroui/react"; // Im
 import { toast } from "react-hot-toast";
 import { submitComment } from "@/app/utils/comment";
 import { Card, CardBody } from "@heroui/react";
+import { BsFillSendPlusFill } from "react-icons/bs";
+import { IoChatboxEllipsesOutline } from "react-icons/io5";
+
 
 interface CommentFormProps {
   postId: string;
@@ -70,11 +73,12 @@ export function CommentForm({
   }
 
   return (
-    <Card className="w-full">
+    <Card className="w-full dark:border-2 dark:border-white">
       <CardHeader>
-        <h3 className="text-xl font-bold mb-4">
+        <IoChatboxEllipsesOutline size='28' className='font-bold'/>
+        <div className="text-xl ml-4 font-semibold">
           {locale === "en" ? "Leave a Comment" : "Để lại bình luận"}
-        </h3>
+        </div>
 
         {formSuccess && (
           <div className="bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 p-4 rounded-lg mb-4">
@@ -99,10 +103,11 @@ export function CommentForm({
             // placeholder={locale === "en" ? "Your name" : "Tên của bạn"}
             type="text"
             // variant="underlined"
-            labelPlacement="outside"
+            // labelPlacement="outside"
+            variant="bordered"
             key='outside'
-            disabled={isSubmitting}
-            required
+            isDisabled={isSubmitting}
+            isRequired
           />
 
           {/* Email Input (Optional) */}
@@ -122,18 +127,15 @@ export function CommentForm({
             id="comment"
             name="comment"
             label={locale === "en" ? "Comment" : "Bình luận"}
-            // placeholder={
-            //   locale === "en" ? "Your comment" : "Nội dung bình luận"
-            // }
-            // variant="underlined"
-            labelPlacement="outside"
-            key='outside'
-            disabled={isSubmitting}
-            required
+            // placeholder={locale === "en" ? "Your comment" : "Nội dung bình luận"}
+            // labelPlacement="outside"
+            variant="bordered"
+            isDisabled={isSubmitting}
+            isRequired
           />
 
           {/* Submit Button */}
-          <Button type="submit" disabled={isSubmitting} className="w-full">
+          <Button type="submit" disabled={isSubmitting} className="w-full " startContent={<BsFillSendPlusFill />}>
             {isSubmitting ? (
               <span className="flex items-center gap-2">
                 <svg
@@ -159,7 +161,7 @@ export function CommentForm({
                 {locale === "en" ? "Submitting..." : "Đang gửi..."}
               </span>
             ) : locale === "en" ? (
-              "Submit Comment"
+              "Send Comment"
             ) : (
               "Gửi bình luận"
             )}

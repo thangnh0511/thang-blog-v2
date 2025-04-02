@@ -12,7 +12,7 @@ export async function Comments({ postId, locale = "en" }: CommentsProps) {
 
   return (
     <section className="mt-12 space-y-8">
-      <h2 className="text-2xl font-bold">{locale === "en" ? "Comments" : "Bình luận"}</h2>
+      {/* <h2 className="text-2xl font-bold">{locale === "en" ? "Comments" : "Bình luận"}</h2> */}
 
       <CommentForm postId={postId} locale={locale} />
 
