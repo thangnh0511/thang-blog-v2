@@ -31,6 +31,11 @@ export function CommentSection({ postId, initialComments, locale = "en" }: Comme
   const [isLoading, setIsLoading] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
 
+  const [name, setName] = useState("");
+  const [comment, setComment] = useState("");
+
+
+
   // Function to fetch the latest comments
   const fetchComments = async () => {
     setIsLoading(true)
@@ -53,11 +58,17 @@ export function CommentSection({ postId, initialComments, locale = "en" }: Comme
     }
   }
 
+  // Function to check if both inputs are filled
+  const isFormFilled = name.trim() !== "" && comment.trim() !== "";
+  const handleInputChange = (e:any) => {
+    const { name, value } = e.target;
+    if (name === "name") setName(value);
+    if (name === "comment") setComment(value);
+  };
+
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-
-    // Prevent multiple submissions
-    if (isSubmitting) return
 
     setIsSubmitting(true)
 
@@ -130,7 +141,7 @@ export function CommentSection({ postId, initialComments, locale = "en" }: Comme
 
   return (
     <div className="mt-12 pt-8 border-t space-y-8">
-      <h2 className="text-2xl font-bold">{locale === "en" ? "Comments" : "Bình luận"}</h2>
+      {/* <h2 className="text-2xl font-bold">{locale === "en" ? "Comments" : "Bình luận"}</h2> */}
 
       {/* Comment Form */}
       <Card className="w-full dark:border-2 dark:border-white">
@@ -148,6 +159,8 @@ export function CommentSection({ postId, initialComments, locale = "en" }: Comme
               variant="bordered"
               key="outside"
               isDisabled={isSubmitting}
+              value={name}
+              onChange={handleInputChange}
               isRequired
             />
 
@@ -157,10 +170,14 @@ export function CommentSection({ postId, initialComments, locale = "en" }: Comme
               label={locale === "en" ? "Comment" : "Bình luận"}
               variant="bordered"
               isDisabled={isSubmitting}
+              value={comment}
+              onChange={handleInputChange}
               isRequired
             />
 
-            <Button type="submit" disabled={isSubmitting} className="w-full" startContent={<BsFillSendPlusFill />}>
+            <Button type="submit" disabled={isSubmitting} 
+                     color={isFormFilled ? "success" : "default"}
+                    className="w-full" startContent={<BsFillSendPlusFill />}>
               {isSubmitting ? (
                 <span className="flex items-center gap-2">
                   <svg

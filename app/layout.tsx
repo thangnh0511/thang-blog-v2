@@ -13,7 +13,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Thang.",
   description: "Thang.Personal",
-  generator: "v0.dev",
+  // generator: "v0.dev",
   icons: {
     icon: "/favicon.ico",
   },
