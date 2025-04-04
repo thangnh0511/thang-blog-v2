@@ -88,6 +88,9 @@ export function CommentSection({ postId, initialComments, locale = "en" }: Comme
 
       console.log("Submit result:", result) // Debug log
 
+      setName('')
+      setComment('')
+
       if (result.success) {
         // Show success toast
         toast.success(locale === "en" ? "Comment submitted successfully!" : "Bình luận đã được gửi thành công!", {
