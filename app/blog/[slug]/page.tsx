@@ -8,6 +8,7 @@ import MetadataModal from "@/components/metadata-modal"
 import TravelRouteModal from "@/components/metadata-for-route"
 import { Comments } from "@/components/__comment/comments"
 import { CommentSectionWrapper } from "@/components/__commentRT/comment-section-wrapper"
+import PostMetadata from "@/components/post-metadata"
 
 
 interface PostPageProps {
@@ -26,6 +27,9 @@ export default async function PostPage({ params, searchParams }: PostPageProps) 
   if (!post) {
     notFound()
   }
+
+  const postUrl = `https://thangnh.vercel.app/blog/${params.slug}`
+
 
   // For debugging - log the post data to see if location exists
   console.log("Post data:", {
@@ -48,6 +52,8 @@ export default async function PostPage({ params, searchParams }: PostPageProps) 
   }
 
   return (
+    <>
+    <PostMetadata title={title} description={post.metadata} imageUrl={post.mainImage} postUrl={postUrl} author={post.author.fullName} date={date} />
     <article className="container py-12 max-w-3xl mx-auto gap-2">
       <h1 className="text-4xl font-bold tracking-tight mb-4">{title}</h1>
       <div className="flex items-center gap-2 text-muted-foreground my-1">
@@ -96,6 +102,8 @@ export default async function PostPage({ params, searchParams }: PostPageProps) 
       <CommentSectionWrapper postId={post._id} locale={locale} />
 
     </article>
+    </>
+    
   )
 }
 
