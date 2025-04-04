@@ -180,6 +180,7 @@ export function CommentSection({ postId, initialComments, locale = "en" }: Comme
 
             <Button type="submit" disabled={isSubmitting} 
                      color={isFormFilled ? "success" : "default"}
+                     isDisabled={isFormFilled ? false : true}
                     className="w-full" startContent={<BsFillSendPlusFill />}>
               {isSubmitting ? (
                 <span className="flex items-center gap-2">
