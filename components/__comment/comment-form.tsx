@@ -1,141 +1,115 @@
-"use client";
+"use client"
 
-import type React from "react";
-import { useState } from "react";
-import { Form, Input, Textarea, Button, CardHeader } from "@heroui/react"; // Import Hero UI components
-import { toast } from "react-hot-toast";
-import { submitComment } from "@/app/utils/comment";
-import { Card, CardBody } from "@heroui/react";
-import { BsFillSendPlusFill } from "react-icons/bs";
-import { IoChatboxEllipsesOutline } from "react-icons/io5";
-
+import type React from "react"
+import { useState } from "react"
+import { Form, Input, Textarea, Button, CardHeader } from "@heroui/react"
+import { toast } from "react-hot-toast"
+import { submitComment } from "@/app/utils/comment"
+import { Card, CardBody } from "@heroui/react"
+import { BsFillSendPlusFill } from "react-icons/bs"
+import { IoChatboxEllipsesOutline } from "react-icons/io5"
 
 interface CommentFormProps {
-  postId: string;
-  locale?: string;
-  onCommentSubmitted?: () => void;
+  postId: string
+  locale?: string
+  onCommentSubmitted?: (newComment: any) => void
 }
 
-export function CommentForm({
-  postId,
-  locale = "en",
-  onCommentSubmitted,
-}: CommentFormProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formError, setFormError] = useState<string | null>(null);
-  const [formSuccess, setFormSuccess] = useState<string | null>(null);
+export function CommentForm({ postId, locale = "en", onCommentSubmitted }: CommentFormProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setIsSubmitting(true);
-    setFormError(null);
-    setFormSuccess(null);
+    event.preventDefault()
 
-    const formData = new FormData(event.currentTarget); // Extract form data
-    formData.append("postId", postId);
+    // Prevent multiple submissions
+    if (isSubmitting) return
+
+    setIsSubmitting(true)
+
+    // Clear any existing toasts to prevent duplicates
+    toast.dismiss()
+
+    const formData = new FormData(event.currentTarget)
+    formData.append("postId", postId)
 
     try {
-      const result = await submitComment(formData);
+      const result = await submitComment(formData)
 
       if (result.success) {
-        toast.success(
-          locale === "en"
-            ? "Comment submitted successfully!"
-            : "Bình luận đã được gửi thành công!",
-          {
-            position:
-              window.innerWidth < 640 ? "bottom-center" : "bottom-right",
-          }
-        );
+        // Show success toast
+        toast.success(locale === "en" ? "Comment submitted successfully!" : "Bình luận đã được gửi thành công!", {
+          position: window.innerWidth < 640 ? "bottom-center" : "bottom-right",
+          duration: 3000,
+        })
 
-        event.currentTarget.reset(); // Reset form after submission
+        // Reset the form
+        event.currentTarget.reset()
 
+        // Create a temporary comment object to add to the UI immediately
+        const tempComment = {
+          _id: result.comment?._id || `temp-${Date.now()}`,
+          name: formData.get("name") as string,
+          comment: formData.get("comment") as string,
+          avatar: result.comment?.avatar || "/placeholder.svg",
+          createdAt: new Date().toISOString(),
+        }
+
+        // Update the UI with the new comment
         if (onCommentSubmitted) {
-          onCommentSubmitted(); // Trigger re-fetch of comments
+          onCommentSubmitted(tempComment)
         }
       } else {
-        toast.error(result.message, {
+        // Show error toast
+        toast.error(result.message || "Error submitting comment", {
           position: window.innerWidth < 640 ? "bottom-center" : "bottom-right",
-        });
+          duration: 3000,
+        })
       }
     } catch (error) {
+      console.error("Error submitting comment:", error)
+
+      // Show error toast
       toast.error(
-        locale === "en"
-          ? "An unexpected error occurred. Please try again."
-          : "Đã xảy ra lỗi, vui lòng thử lại.",
+        locale === "en" ? "An unexpected error occurred. Please try again." : "Đã xảy ra lỗi, vui lòng thử lại.",
         {
           position: window.innerWidth < 640 ? "bottom-center" : "bottom-right",
-        }
-      );
+          duration: 3000,
+        },
+      )
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false)
     }
   }
 
   return (
     <Card className="w-full dark:border-2 dark:border-white">
       <CardHeader>
-        <IoChatboxEllipsesOutline size='28' className='font-bold'/>
-        <div className="text-xl ml-4 font-semibold">
-          {locale === "en" ? "Leave a Comment" : "Để lại bình luận"}
-        </div>
-
-        {formSuccess && (
-          <div className="bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 p-4 rounded-lg mb-4">
-            {formSuccess}
-          </div>
-        )}
-
-        {formError && (
-          <div className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 p-4 rounded-lg mb-4">
-            {formError}
-          </div>
-        )}
+        <IoChatboxEllipsesOutline size="28" className="font-bold" />
+        <div className="text-xl ml-4 font-semibold">{locale === "en" ? "Leave a Comment" : "Để lại bình luận"}</div>
       </CardHeader>
       <CardBody>
-        {/* Hero UI Form */}
         <Form onSubmit={handleSubmit} className="space-y-4">
-          {/* Name Input */}
           <Input
             id="name"
             name="name"
             label={locale === "en" ? "Name" : "Tên"}
-            // placeholder={locale === "en" ? "Your name" : "Tên của bạn"}
             type="text"
-            // variant="underlined"
-            // labelPlacement="outside"
             variant="bordered"
-            key='outside'
+            key="outside"
             isDisabled={isSubmitting}
             isRequired
           />
 
-          {/* Email Input (Optional) */}
-          {/* <Input
-          id="email"
-          name="email"
-          label={locale === "en" ? "Email (Optional)" : "Email (Không bắt buộc)"}
-          placeholder={locale === "en" ? "Your email" : "Email của bạn"}
-          type="email"
-          // variant="underlined"
-          labelPlacement='outside'
-          disabled={isSubmitting}
-        /> */}
-
-          {/* Comment Textarea */}
           <Textarea
             id="comment"
             name="comment"
             label={locale === "en" ? "Comment" : "Bình luận"}
-            // placeholder={locale === "en" ? "Your comment" : "Nội dung bình luận"}
-            // labelPlacement="outside"
             variant="bordered"
             isDisabled={isSubmitting}
             isRequired
           />
 
-          {/* Submit Button */}
-          <Button type="submit" disabled={isSubmitting} className="w-full " startContent={<BsFillSendPlusFill />}>
+          <Button type="submit" disabled={isSubmitting} className="w-full" startContent={<BsFillSendPlusFill />}>
             {isSubmitting ? (
               <span className="flex items-center gap-2">
                 <svg
@@ -144,14 +118,7 @@ export function CommentForm({
                   fill="none"
                   viewBox="0 0 24 24"
                 >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path
                     className="opacity-75"
                     fill="currentColor"
@@ -169,5 +136,6 @@ export function CommentForm({
         </Form>
       </CardBody>
     </Card>
-  );
+  )
 }
+

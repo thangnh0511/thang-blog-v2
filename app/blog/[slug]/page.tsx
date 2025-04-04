@@ -7,6 +7,7 @@ import { IoMdTime } from "react-icons/io"
 import MetadataModal from "@/components/metadata-modal"
 import TravelRouteModal from "@/components/metadata-for-route"
 import { Comments } from "@/components/__comment/comments"
+import { CommentSectionWrapper } from "@/components/__commentRT/comment-section-wrapper"
 
 
 interface PostPageProps {
@@ -90,8 +91,9 @@ export default async function PostPage({ params, searchParams }: PostPageProps) 
 
 
       {/* Add the Comments component */}
-      <Comments postId={post._id} locale={locale} />
+      {/* <Comments postId={post._id} locale={locale} /> */}
 
+      <CommentSectionWrapper postId={post._id} locale={locale} />
 
     </article>
   )

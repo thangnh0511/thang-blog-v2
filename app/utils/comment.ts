@@ -1,12 +1,12 @@
-"use server";
+"use server"
 
-import { createClient } from "@sanity/client";
+import { createClient } from "@sanity/client"
 
 // Function to generate a random avatar URL
 function getRandomAvatarUrl(): string {
-  const baseUrl = "https://avatar.iran.liara.run/public/";
-  const randomNumber = Math.floor(Math.random() * 100) + 1; // Generates a number from 1 to 100
-  return `${baseUrl}${randomNumber}`;
+  const baseUrl = "https://avatar.iran.liara.run/public/"
+  const randomNumber = Math.floor(Math.random() * 100) + 1 // Generates a number from 1 to 100
+  return `${baseUrl}${randomNumber}`
 }
 
 const client = createClient({
@@ -15,33 +15,27 @@ const client = createClient({
   apiVersion: "2023-05-03",
   token: process.env.SANITY_API_TOKEN, // You'll need to add this to your environment variables
   useCdn: false,
-});
+})
 
 export async function submitComment(formData: FormData) {
   try {
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string | null;
-    const comment = formData.get("comment") as string;
-    const postId = formData.get("postId") as string;
+    const name = formData.get("name") as string
+    const email = formData.get("email") as string | null
+    const comment = formData.get("comment") as string
+    const postId = formData.get("postId") as string
 
     if (!name || !comment || !postId) {
       return {
         success: false,
         message: "All fields are required",
-      };
+      }
     }
 
+    // Generate avatar URL
+    const avatar = getRandomAvatarUrl()
+
     // Prepare the comment data
-    const commentData: {
-      _type: "comment";
-      name: string;
-      comment: string;
-      post: { _type: "reference"; _ref: string };
-      createdAt: string;
-      isApproved: boolean;
-      email?: string;
-      avatar: string;
-    } = {
+    const commentData = {
       _type: "comment",
       name,
       comment,
@@ -50,38 +44,43 @@ export async function submitComment(formData: FormData) {
         _ref: postId,
       },
       createdAt: new Date().toISOString(),
-      isApproved: true, // Can change to false if approval is needed
-      avatar: getRandomAvatarUrl(), // Adding random avatar URL
-    };
-
-    // Only add email if it is provided
-    if (email) {
-      commentData.email = email;
+      isApproved: true,
+      avatar,
     }
 
-    // Send the comment to Sanity
-    const response = await client.create(commentData);
+    // Add email if provided
+    // if (email) {
+    //   commentData.email = email
+    // }
 
-    // Check the response from Sanity
+    // Send the comment to Sanity
+    const response = await client.create(commentData)
+
     if (response && response._id) {
       return {
         success: true,
-        message: "Comment submitted successfully! It will appear after approval.",
-      };
+        message: "Comment submitted successfully!",
+        comment: {
+          _id: response._id,
+          name: commentData.name,
+          comment: commentData.comment,
+          avatar: commentData.avatar,
+          createdAt: commentData.createdAt,
+        },
+      }
     } else {
-      throw new Error("Failed to create comment in Sanity.");
+      return {
+        success: false,
+        message: "Failed to create comment in Sanity.",
+      }
     }
-  } catch (error: any) {
-    console.error("Error submitting comment:", error);
-
-    // If the error is related to Sanity, log the response for debugging
-    if (error.response) {
-      console.error("Sanity API Error:", error.response);
-    }
+  } catch (error) {
+    console.error("Error submitting comment:", error)
 
     return {
       success: false,
       message: "Error submitting comment. Please try again.",
-    };
+    }
   }
 }
+

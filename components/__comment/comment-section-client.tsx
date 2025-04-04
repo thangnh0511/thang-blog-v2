@@ -7,8 +7,9 @@ import { CommentList } from "./comment-list"
 interface Comment {
   _id: string
   name: string
-  email: string
+  email?: string
   comment: string
+  avatar: string
   createdAt: string
 }
 
@@ -27,9 +28,14 @@ export function CommentsSectionClient({ postId, initialComments, locale = "en" }
     setIsLoading(true)
     try {
       const response = await fetch(`/api/comments?postId=${postId}`)
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`)
+      }
+
       const data = await response.json()
 
-      if (response.ok && data.comments) {
+      if (data.comments) {
         setComments(data.comments)
       }
     } catch (error) {
@@ -39,12 +45,11 @@ export function CommentsSectionClient({ postId, initialComments, locale = "en" }
     }
   }
 
-  // Handle comment submission
-  const handleCommentSubmitted = () => {
-    // Fetch the latest comments after a short delay to allow Sanity to process
-    setTimeout(() => {
-      fetchComments()
-    }, 1000)
+  // Handle comment submission - directly add the new comment to the state
+  const handleCommentSubmitted = (newComment: Comment) => {
+    console.log("New comment received:", newComment)
+    // Add the new comment to the beginning of the comments array
+    setComments((prevComments) => [newComment, ...prevComments])
   }
 
   return (
