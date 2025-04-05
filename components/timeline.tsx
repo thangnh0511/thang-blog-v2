@@ -5,6 +5,15 @@ import { motion } from "framer-motion";
 import "./_asset/timeline.css";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import TransportIconDot from "./transportIconDot";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Divider,
+  Link,
+  Image,
+} from "@heroui/react";
 
 // Define types for props and data structure
 interface EventData {
@@ -65,7 +74,7 @@ const Timeline: React.FC<TimelineProps> = ({ data }) => {
         const events = data[day_title] ?? []; // Đảm bảo luôn là array
 
         return (
-          <div className="snap-y timeline-day font-mono" key={day_title}>
+          <div className="snap-y timeline-day font-montserrat" key={day_title}>
             <h2
               className="day-title font-mono inline-block py-2 text-base lg:text-lg px-3 rounded-xl bg-black text-white dark:bg-[#1e1e1e] dark:text-[#ffe700] dark:border-2 dark:border-[#ffe700] shadow-md sticky top-0 z-10"
               style={{
@@ -96,8 +105,45 @@ const Timeline: React.FC<TimelineProps> = ({ data }) => {
                     {event?.Time}
                   </motion.div>
 
-                  <div className="event-details">
-                    {event?.Map ? (
+                  <div
+                  // className="event-details"
+                  >
+                    <Card isHoverable isFooterBlurred className="z-0">
+                      <CardHeader className="">
+                        {event?.Map ? (
+                          <a
+                            href={event.Map}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="event-map inline-block text-red-500 dark:text-red-500 items-center"
+                          >
+                            <FaMapMarkerAlt />
+                            <motion.div
+                              className="event-location text-xl text-red-500 dark:text-[#ffe700]"
+                              //   variants={textColorVariants}
+                            >
+                              {event?.Location}
+                            </motion.div>
+                          </a>
+                        ) : (
+                          <motion.div
+                            className="event-location text-xl text-black dark:text-[#ffe700]"
+                            // variants={textColorVariants}
+                          >
+                            {event?.Location}
+                          </motion.div>
+                        )}
+                      </CardHeader>
+
+                      {event?.Description && (
+                        <CardBody className='pt-0'>
+                          <div className="event-description">
+                            {event.Description}
+                          </div>
+                        </CardBody>
+                      )}
+                    </Card>
+                    {/* {event?.Map ? (
                       <a
                         href={event.Map}
                         target="_blank"
@@ -107,7 +153,7 @@ const Timeline: React.FC<TimelineProps> = ({ data }) => {
                         <FaMapMarkerAlt />
                         <motion.div
                           className="event-location text-xl text-black dark:text-[#ffe700]"
-                        //   variants={textColorVariants}
+                          //   variants={textColorVariants}
                         >
                           {event?.Location}
                         </motion.div>
@@ -124,7 +170,7 @@ const Timeline: React.FC<TimelineProps> = ({ data }) => {
                       <div className="event-description">
                         {event.Description}
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </motion.div>
               ))
