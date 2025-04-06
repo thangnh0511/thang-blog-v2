@@ -89,7 +89,13 @@ export default async function PostPage({ params, searchParams }: PostPageProps) 
         </div>
       </div>
 
-      {post.metadata && <MetadataModal metadata={post.post_metadata} locale={locale} />}
+      {post.metadata && 
+      (
+        <div className='py-4'>
+              <MetadataModal metadata={post.post_metadata} locale={locale} />
+        </div>
+      )
+      }
 
       {post.mainImage && (
         <div className="relative aspect-video my-1 overflow-hidden rounded-lg">
