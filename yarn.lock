@@ -2522,25 +2522,9 @@
     tailwind-merge "2.5.4"
     tailwind-variants "0.3.0"
 
-"@heroui/toast@2.0.6":
+"@heroui/toast@2.0.6", "@heroui/toast@^2.0.6":
   version "2.0.6"
   resolved "https://registry.npmjs.org/@heroui/toast/-/toast-2.0.6.tgz"
-  integrity sha512-dJrHWkxc9s5sggvP8gspTzleIcm90nCWebl19EJRKyHOKC56iv4mQvpUMQ4GbNYm7dfS7N/pOk7sHEcR45c18w==
-  dependencies:
-    "@heroui/react-utils" "2.1.8"
-    "@heroui/shared-icons" "2.1.6"
-    "@heroui/shared-utils" "2.1.7"
-    "@heroui/spinner" "2.2.13"
-    "@heroui/use-is-mobile" "2.2.7"
-    "@react-aria/interactions" "3.24.0"
-    "@react-aria/toast" "3.0.0-beta.19"
-    "@react-aria/utils" "3.28.0"
-    "@react-stately/toast" "3.0.0-beta.7"
-    "@react-stately/utils" "3.10.5"
-
-"@heroui/toast@^2.0.6":
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/@heroui/toast/-/toast-2.0.6.tgz#b98aef857156c66768b2354e99dc357aeef4b8ee"
   integrity sha512-dJrHWkxc9s5sggvP8gspTzleIcm90nCWebl19EJRKyHOKC56iv4mQvpUMQ4GbNYm7dfS7N/pOk7sHEcR45c18w==
   dependencies:
     "@heroui/react-utils" "2.1.8"
@@ -2557,6 +2541,25 @@
 "@heroui/tooltip@2.2.13":
   version "2.2.13"
   resolved "https://registry.npmjs.org/@heroui/tooltip/-/tooltip-2.2.13.tgz"
+  integrity sha512-pYfWuhFbOLevr/YnwtT8rLlNbsiOb3WwYo9378ZByHQFCNS0Fd+qPVU+9i7Z/+am3XLoQxgQ5r7OTlMnmCjVmg==
+  dependencies:
+    "@heroui/aria-utils" "2.2.13"
+    "@heroui/dom-animation" "2.1.6"
+    "@heroui/framer-utils" "2.1.12"
+    "@heroui/react-utils" "2.1.8"
+    "@heroui/shared-utils" "2.1.7"
+    "@heroui/use-safe-layout-effect" "2.1.6"
+    "@react-aria/interactions" "3.24.0"
+    "@react-aria/overlays" "3.26.0"
+    "@react-aria/tooltip" "3.8.0"
+    "@react-aria/utils" "3.28.0"
+    "@react-stately/tooltip" "3.5.2"
+    "@react-types/overlays" "3.8.13"
+    "@react-types/tooltip" "3.4.15"
+
+"@heroui/tooltip@^2.2.13":
+  version "2.2.13"
+  resolved "https://registry.yarnpkg.com/@heroui/tooltip/-/tooltip-2.2.13.tgz#e846bd72915f65a75459a47ab1dcbfa9ef235403"
   integrity sha512-pYfWuhFbOLevr/YnwtT8rLlNbsiOb3WwYo9378ZByHQFCNS0Fd+qPVU+9i7Z/+am3XLoQxgQ5r7OTlMnmCjVmg==
   dependencies:
     "@heroui/aria-utils" "2.2.13"

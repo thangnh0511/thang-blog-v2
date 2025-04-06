@@ -72,6 +72,23 @@ export async function getPost(slug: string) {
       metadata_en,
       metadata_vi,
       gallery_metadata
+    },
+    "post_metadata": {
+      "route": post_info.route_metadata->{
+        meta_title_en,
+        meta_title_vi,
+        type,
+        cover_image,
+        metadata_en,
+        metadata_vi
+      },
+      "gallery": post_info.gallery_metadata->{
+        meta_title_en,
+        meta_title_vi,
+        type,
+        cover_image,
+        gallery_metadata
+      }
     }
   }`
 

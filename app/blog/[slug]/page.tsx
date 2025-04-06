@@ -4,7 +4,7 @@ import { PortableText } from "@/components/portable-text"
 import Image from "next/image"
 import { formatDate } from "@/lib/utils"
 import { IoMdTime } from "react-icons/io"
-import MetadataModal from "@/components/metadata-modal"
+import MetadataModal from "@/components/__post-additional-information/info-wrapper"
 import TravelRouteModal from "@/components/metadata-for-route"
 import { Comments } from "@/components/__comment/comments"
 import { CommentSectionWrapper } from "@/components/__commentRT/comment-section-wrapper"
@@ -89,7 +89,7 @@ export default async function PostPage({ params, searchParams }: PostPageProps) 
         </div>
       </div>
 
-      {post.metadata && <MetadataModal metadata={post.metadata} locale={locale} />}
+      {post.metadata && <MetadataModal metadata={post.post_metadata} locale={locale} />}
 
       {post.mainImage && (
         <div className="relative aspect-video my-1 overflow-hidden rounded-lg">
